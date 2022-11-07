@@ -4,12 +4,7 @@ import { getFirestore } from "firebase/firestore"
 import { getStorage } from "firebase/storage"
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAUfXDUNCa1xDKOPIkvFzKxd92U1gFKaHo",
-  authDomain: "blog-21515.firebaseapp.com",
-  projectId: "blog-21515",
-  storageBucket: "blog-21515.appspot.com",
-  messagingSenderId: "1095405619711",
-  appId: "1:1095405619711:web:1ceb3b19c1bf20b6a57fca"
+  //Put youur firebase config here
 }
 
 const app = initializeApp(firebaseConfig)
