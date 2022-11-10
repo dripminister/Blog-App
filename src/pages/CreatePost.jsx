@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { addDoc, collection, Timestamp } from 'firebase/firestore'
 import { db, auth, storage } from '../firebase'
 import { useNavigate } from 'react-router-dom'
-import { uploadBytesResumable, getDownloadURL, ref } from 'firebase/storage'
+import { uploadBytes, getDownloadURL, ref } from 'firebase/storage'
 
 export default function CreatePost() {
 
@@ -17,16 +17,9 @@ export default function CreatePost() {
     const createPost = async () => {
         if (img) {
             const storageRef = ref(storage, img.name)
-      
-            const uploadTask = uploadBytesResumable(storageRef, img)
-      
-            uploadTask.on(
-              (error) => {
-                //TODO:Handle Error
-              },
-              () => {
-                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                    await addDoc(postCollectionsRef, {
+            uploadBytes(storageRef, img).then((snapshot) => {
+                getDownloadURL(snapshot.ref).then((url) => {
+                    addDoc(postCollectionsRef, {
                         title,
                         post,
                         author: {
@@ -35,11 +28,10 @@ export default function CreatePost() {
                         },
                         createdAt: Timestamp.now(),
                         likes: [],
-                        img: downloadURL
+                        img: url
                     })
                 })
-              }
-            )
+            })
         } else {
             await addDoc(postCollectionsRef, {
                 title,
