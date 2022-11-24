@@ -12,7 +12,6 @@ export default function Home() {
 
     useEffect(() => {
         const getPosts = async () => {
-            //const data = await getDocs(postCollectionsRef)
             const q = query(postCollectionsRef, orderBy("createdAt", "desc"))
             const data = await getDocs(q)
             setPosts(data.docs.map(doc => ({...doc.data(), id: doc.id})))
