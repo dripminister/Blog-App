@@ -4,12 +4,9 @@ import CreatePost from "./pages/CreatePost"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import { auth } from "./firebase"
-import { useState } from "react"
 import User from "./pages/User"
 
 function App() {
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
 
   const ProtectedRoute = ({ children }) => {
     if (auth.currentUser === null) {
@@ -20,25 +17,48 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      {isAuthenticated && <Navbar setIsAuthenticated={setIsAuthenticated}/>}
-      <Routes>
-        <Route path="/" element={
-        <ProtectedRoute>
-          <Home />
-        </ProtectedRoute>}/>
-        <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated}/>}/>
-        <Route path="/create" element={
-          <ProtectedRoute>
-            <CreatePost/>
-          </ProtectedRoute>}/>
-        <Route path="/user/:id" element={
-          <ProtectedRoute>
-            <User />
-          </ProtectedRoute>}/>
-      </Routes>
-    </BrowserRouter>
-  )
+		<BrowserRouter>
+			<Routes>
+				<Route
+					path="/"
+					element={
+						<ProtectedRoute>
+							<div>
+								<Navbar />
+								<Home />
+							</div>
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/login"
+					element={<Login />}
+				/>
+				<Route
+					path="/create"
+					element={
+						<ProtectedRoute>
+							<div>
+								<Navbar />
+								<CreatePost />
+							</div>
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/user/:id"
+					element={
+						<ProtectedRoute>
+							<div>
+								<Navbar />
+								<User />
+							</div>
+						</ProtectedRoute>
+					}
+				/>
+			</Routes>
+		</BrowserRouter>
+	)
 }
 
 export default App
