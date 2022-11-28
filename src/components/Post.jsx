@@ -3,6 +3,8 @@ import { doc, deleteDoc, updateDoc, arrayUnion, arrayRemove, getDoc } from "fire
 import { db, auth } from "../firebase"
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder"
+import FavoriteIcon from "@mui/icons-material/Favorite"
 
 export default function Post({post}) {
 
@@ -62,10 +64,11 @@ export default function Post({post}) {
         <div className='postFooter'>
             <Link to={`/user/${post.author.id}`}><h3>@{post.author.name}</h3></Link>
             <div className='likeDiv'>
-                {liked ? 
-                    <button onClick={() => unlikePost(post.id)}>Unlike</button> :
-                    <button onClick={() => likePost(post.id)}>Like</button>
-                }
+                {liked ? (
+					<FavoriteIcon onClick={() => unlikePost(post.id)} />
+					) : (
+					<FavoriteBorderIcon onClick={() => likePost(post.id)} />
+				)}
                 <h4 className='likes'>{post.likes.length}</h4>
             </div>
         </div>
