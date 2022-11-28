@@ -65,10 +65,10 @@ export default function Post({post}) {
             <Link to={`/user/${post.author.id}`}><h3>@{post.author.name}</h3></Link>
             <div className='likeDiv'>
                 {liked ? (
-					<FavoriteIcon onClick={() => unlikePost(post.id)} />
-					) : (
-					<FavoriteBorderIcon onClick={() => likePost(post.id)} />
-				)}
+			<FavoriteIcon onClick={() => unlikePost(post.id)} />
+			) : (
+			<FavoriteBorderIcon onClick={() => likePost(post.id)} />
+		)}
                 <h4 className='likes'>{post.likes.length}</h4>
             </div>
         </div>
